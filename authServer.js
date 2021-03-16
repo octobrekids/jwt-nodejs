@@ -10,6 +10,12 @@ app.use(express.json());
 
 let refreshTokens = [];
 
+app.delete('/logout', (req,res) => {
+  refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+  // successful delete
+  res.sendStatus(204)
+})
+
 app.post("/token", (req, res) => {
   const refreshToken = req.body.token;
   if (refreshToken == null) return res.sendStatus(401);
